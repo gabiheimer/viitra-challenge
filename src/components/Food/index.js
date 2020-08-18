@@ -6,29 +6,44 @@ import { Container } from './styles';
 
 import {withRouter} from 'react-router-dom';
 
-const Food = ({ history, food, handleDelete, handleEditFood, handleUpdateFood }) => {
+const Food = ({ 
+  history, 
+  food, 
+  handleDelete, 
+  handleEditFood, 
+  handleUpdateAvailable
+}) => {
   const [isAvailable, setIsAvailable] = useState(food.available);
 
   async function toggleAvailable(e) {
-    // COMENTAR
+    // stop page from redirecting
     e.stopPropagation();
+
+    // update food in API
+    handleUpdateAvailable(food, !isAvailable);
+
     // update state
     setIsAvailable(!isAvailable);
   }
 
-  function setEditingFood(e) {
-    // COMENTAR
+  function editFood(e) {
+    // stop page from redirecting
     e.stopPropagation();
+
+    // open food edit modal
     handleEditFood(food);
   }
 
   function handleRedirect(e) {
-    console.log(e.target.tagName);
+    // redirect to food's details page
     history.push(`/detalhes/${food.id}`);
   }
 
   function deleteFood(e) {
+    // stop page from redirecting
     e.stopPropagation();
+
+    // delete food in API
     handleDelete(food.id);
   }
 
@@ -49,7 +64,7 @@ const Food = ({ history, food, handleDelete, handleEditFood, handleUpdateFood })
           <button
             type="button"
             className="icon"
-            onClick={setEditingFood}
+            onClick={editFood}
           >
             <FiEdit3 size={20} />
           </button>

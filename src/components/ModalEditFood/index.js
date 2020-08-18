@@ -15,13 +15,17 @@ const ModalEditFood = ({
   const formRef = useRef(null);
 
   function handleSubmit(data) {
-    // COMENTAR
+    // update food in API
     handleUpdateFood(data);
+
+    // close modal
     setIsOpen(false);
   }
 
+  // avoid errors when food is null
   if(!food) return null;
 
+  // added default values
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <Form ref={formRef} onSubmit={handleSubmit} initialData={editingFood}>

@@ -8,6 +8,8 @@ import Details from '../pages/Details';
 const Routes = () => (
   <Switch>
     <Route path="/" exact component={Dashboard} />
+
+    {/* added details route */}
     <Route path="/detalhes/:id" exact render={(routeProps) => <Details {...routeProps}/>}/>
   </Switch>
 );

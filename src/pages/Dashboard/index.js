@@ -17,37 +17,54 @@ const Dashboard = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
 
   useEffect(() => {
+    // fetch data from api when component mounts
     getFoods();
   }, [])
 
   function getFoods() {
-    // COMENTAR
+    // fetch data from API
     api.get('/foods').then(res => {
+      // update state
       setFoods(res.data);
     });
   }
 
+  async function updateFood(food, id) {
+    // update food in API
+    const res = await api.patch(`/foods/${id}`, food);
+
+    // update state
+    getFoods();
+  }
+
   async function handleAddFood(food) {
     try {
-      // COMENTAR
-      const response = await api.post('/foods', food);
+      // add food to API
+      const res = await api.post('/foods', food);
+
+      // update state
       getFoods();
     } catch (err) {
       console.log(err);
     }
   }
 
+  async function handleUpdateAvailable(food, available) {
+    // update food's available attribute in API
+    food.available = available;
+    updateFood(food, food.id);
+  }
+
   async function handleUpdateFood(food) {
-    // TODO UPDATE A FOOD PLATE ON THE API
-    // COMENTAR
-    const response = await api.patch(`/foods/${editingFood}`, food);
-    getFoods();
+    // update food in API after editing
+    updateFood(food, editingFood);
   }
 
   async function handleDeleteFood(id) {
-    // TODO DELETE A FOOD PLATE FROM THE API
-    // COMENTAR
+    // delete food in API
     const response = await api.delete(`/foods/${id}`);
+
+    // update state
     getFoods();
   }
 
@@ -60,8 +77,10 @@ const Dashboard = () => {
   }
 
   function handleEditFood(food) {
-    // COMENTAR
+    // update editingFood state
     setEditingFood(food.id);
+
+    // open edit modal
     toggleEditModal();
   }
 
@@ -89,7 +108,7 @@ const Dashboard = () => {
               food={food}
               handleDelete={handleDeleteFood}
               handleEditFood={handleEditFood}
-              handleUpdateFood={handleUpdateFood}
+              handleUpdateAvailable={handleUpdateAvailable}
             />
           ))}
       </FoodsContainer>

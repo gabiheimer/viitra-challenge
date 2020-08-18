@@ -13,7 +13,10 @@ const ModalAddFood = ({ isOpen, setIsOpen, handleAddFood }) => {
     data.quantity = Number(data.quantity);
     data.available = data.quantity > 0;
 
+    // add food in API
     handleAddFood(data);
+
+    // close modal
     setIsOpen(false);
   }
 

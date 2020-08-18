@@ -8,6 +8,7 @@ const Details = ({match}) => {
     const [food, setFood] = useState([]);
 
     useEffect(() => {
+        // fetch food's details from API when component mounts
         const id = match.params.id;
         api.get(`/foods/${id}`).then(res => {
             setFood(res.data);

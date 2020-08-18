@@ -4,6 +4,9 @@ import { useField } from '@unform/core';
 import { Container } from './styles';
 
 const Input = ({ defaultValue, step, name, type, required, icon: Icon, ...rest }) => {
+  // changed defaultValue because of edit modal
+  // added attributes to input
+
   const inputRef = useRef(null);
   
   const [isFocused, setIsFocused] = useState(false);

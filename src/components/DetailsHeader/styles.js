@@ -16,5 +16,6 @@ export const Container = styled.div`
       pointer-events: none;
       user-select: none;
       position: relative;
+      width: 352px;
     }
 `;
